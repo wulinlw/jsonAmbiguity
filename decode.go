@@ -983,7 +983,12 @@ func (d *decodeState) literalStore(item []byte, v reflect.Value, fromQuoted bool
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 			n, err := strconv.ParseInt(s, 10, 64)
 			if err != nil || v.OverflowInt(n) {
-				d.saveError(&UnmarshalTypeError{Value: "number " + s, Type: v.Type(), Offset: int64(d.off)})
+				if reflect.TypeOf(s).String() == "string" {
+					n, _ := strconv.ParseFloat(s, 64)
+					v.SetInt(int64(n))
+					break
+				}
+				d.saveError(&UnmarshalTypeError{Value: "number" + s, Type: v.Type(), Offset: int64(d.off)})
 				break
 			}
 			v.SetInt(n)
