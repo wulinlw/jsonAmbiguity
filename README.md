@@ -1,7 +1,7 @@
 # jsonAmbiguity
 golang json.Unmarshal(), string or int64, i don't care ~
 
-Edit from go 1.8 "encoding/json" package  
+Edit from go 1.8.3 "encoding/json" package  
 Just modify json.Unmarshal()  
 Package name does't change, if you use this packge with Official pakeage  
 Please set alias name, see example~!
