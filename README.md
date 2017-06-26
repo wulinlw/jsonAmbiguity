@@ -1,5 +1,5 @@
 # jsonAmbiguity
-golang json.Unmarshal(), string or int64, i don't care ~
+golang json.Unmarshal(), string or int64 |float, i don't care ~
 
 Edit from go 1.8.3 "encoding/json" package  
 Just modify json.Unmarshal()  
@@ -59,6 +59,14 @@ func main() {
 	logData3 := &Role{}
 	jsonAmbiguity.Unmarshal([]byte(str3), logData3)
 	fmt.Println(logData3)
+	//output:
+	//&{{15 3} {8.8.8.8 0} 1}
+
+	//money was defined int64 in struct, nevertheless money type Actual is float
+	str4 := `{"attr":{"lv":15,"money":3.82},"net":{"ip":"8.8.8.8","mac":0},"c":1}`
+	logData4 := &Role{}
+	err = jsonAmbiguity.Unmarshal([]byte(str4), logData4)
+	fmt.Println(logData4)
 	//output:
 	//&{{15 3} {8.8.8.8 0} 1}
 }
