@@ -954,7 +954,6 @@ func (d *decodeState) literalStore(item []byte, v reflect.Value, fromQuoted bool
 			}
 		}
 		s := string(item)
-
 		switch v.Kind() {
 		default:
 			if v.Kind() == reflect.String && v.Type() == numberType {
@@ -964,11 +963,10 @@ func (d *decodeState) literalStore(item []byte, v reflect.Value, fromQuoted bool
 				}
 				break
 			}
-			fmt.Printf("__%#v__", v)
 			if fromQuoted {
 				d.error(fmt.Errorf("json: invalid use of ,string struct tag, trying to unmarshal %q into %v", item, v.Type()))
 			} else {
-				d.error(&UnmarshalTypeError{Value: "numberxx", Type: v.Type(), Offset: int64(d.off)})
+				d.error(&UnmarshalTypeError{Value: "number", Type: v.Type(), Offset: int64(d.off)})
 			}
 		case reflect.Interface:
 			n, err := d.convertNumber(s)
